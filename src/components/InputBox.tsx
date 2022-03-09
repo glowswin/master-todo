@@ -12,15 +12,19 @@ function InputBox({ id }: IInputBox) {
 
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const submitevent = ({ todo }: IForm) => {
-    setTodoList((olodTodo) => [
-      {
-        id: Date.now(),
-        text: todo,
-        categoryid: parseInt(id),
-      },
-      ...olodTodo,
-    ]);
-    localStorage.setItem("todoList", JSON.stringify(todoList));
+    let newTodo;
+    setTodoList((olodTodo) => {
+      newTodo = [
+        {
+          id: Date.now(),
+          text: todo,
+          categoryid: parseInt(id),
+        },
+        ...olodTodo,
+      ];
+      return newTodo;
+    });
+    localStorage.setItem("todoList", JSON.stringify(newTodo));
     setValue("todo", "");
   };
   return (
